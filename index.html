@@ -22,7 +22,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261025-3" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261025-5" />
+  <style>
+    /* Critical inline layout for header actions & theme toggle to prevent cache FOUC */
+    .site-header__actions { display: flex; align-items: center; gap: 1.15rem; }
+    .theme-toggle {
+      position: relative;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; padding: 0;
+      border-radius: 50%;
+      border: 1px solid var(--rule, #d8d0c0);
+      background: var(--paper-2, #ebe5d8);
+      color: var(--ink, #161412);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .theme-toggle__sun { display: none; }
+    .theme-toggle__moon { display: block; }
+    html[data-theme="dark"] .theme-toggle__sun { display: block; }
+    html[data-theme="dark"] .theme-toggle__moon { display: none; }
+  </style>
   <script>
     (function () {
       var d = document.documentElement;
@@ -91,15 +110,15 @@
           <a href="#press">Press Releases</a>
           <a href="#contact" class="site-nav__cta" data-magnetic>Contact</a>
         </nav>
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" data-cursor="THEME">
-          <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <span class="site-header__divider" aria-hidden="true"></span>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Toggle light / dark theme" data-magnetic data-cursor="THEME">
+          <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4.5"></circle>
             <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"></path>
           </svg>
           <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
-          <span class="theme-toggle__label" id="theme-toggle-label">Dark</span>
         </button>
         <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
           <span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span>
@@ -482,7 +501,21 @@
     </div>
   </footer>
 
-  <script src="assets/js/press-releases.js?v=20261025-3"></script>
-  <script src="assets/js/main.js?v=20261025-3"></script>
+  <script src="assets/js/press-releases.js?v=20261025-5"></script>
+  <script src="assets/js/main.js?v=20261025-5"></script>
+  <script>
+    (function () {
+      var btn = document.getElementById("theme-toggle");
+      if (!btn || btn.dataset.bound) return;
+      btn.dataset.bound = "true";
+      btn.addEventListener("click", function () {
+        var d = document.documentElement;
+        var next = d.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        if (next === "dark") d.setAttribute("data-theme", "dark");
+        else d.removeAttribute("data-theme");
+        try { localStorage.setItem("sr-theme", next); } catch (e) {}
+      });
+    })();
+  </script>
 </body>
 </html>

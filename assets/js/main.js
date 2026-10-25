@@ -21,11 +21,15 @@
     }
     if (themeLabel) themeLabel.textContent = isDark ? "Light" : "Dark";
     if (themeToggle) {
-      themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+      var labelText = isDark ? "Switch to light mode" : "Switch to dark mode";
+      themeToggle.setAttribute("aria-label", labelText);
+      themeToggle.setAttribute("title", labelText);
       themeToggle.setAttribute("aria-pressed", String(isDark));
+      themeToggle.setAttribute("data-cursor", isDark ? "LIGHT" : "DARK");
     }
   }
-  if (themeToggle) {
+  if (themeToggle && !themeToggle.dataset.bound) {
+    themeToggle.dataset.bound = "true";
     var initialTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
     applyThemeUI(initialTheme);
     themeToggle.addEventListener("click", function () {
