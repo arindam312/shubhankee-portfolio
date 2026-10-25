@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none" class="brand-svg">
+  <!-- Elephant Crest / Masthead Icon -->
+  <g transform="translate(6, 7)">
+    <path d="M4 18 c0 -6 4 -12 11 -12 s11 6 11 12 c-2 -2 -5 -3 -8 -3 c-1 0 -2 2 -3 4 c-1 -2 -2 -4 -3 -4 c-3 0 -6 1 -8 3 Z" fill="currentColor" opacity="0.85"/>
+    <circle cx="15" cy="5" r="2" fill="var(--accent)"/>
+    <path d="M11 22 h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <!-- Text in iconic Broadsheet serif -->
+  <text x="36" y="20" font-family="'Fraunces', Georgia, serif" font-size="12.5" font-weight="700" letter-spacing="0.04em" fill="currentColor">THE TIMES OF INDIA</text>
+  <text x="36" y="29" font-family="'IBM Plex Mono', monospace" font-size="6" font-weight="500" letter-spacing="0.1em" text-transform="uppercase" fill="currentColor" opacity="0.75">Media Group</text>
+</svg>

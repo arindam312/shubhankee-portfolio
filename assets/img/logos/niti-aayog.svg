@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 165 40" fill="none" class="brand-svg">
+  <!-- NITI Aayog Emblem (Dynamic 4-Petal Swirl) -->
+  <g transform="translate(6, 6)">
+    <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.4"/>
+    <path d="M14 1 C14 8, 8 14, 1 14 C8 14, 14 20, 14 27 C14 20, 20 14, 27 14 C20 14, 14 8, 14 1 Z" fill="currentColor"/>
+    <circle cx="14" cy="14" r="3" fill="var(--accent)"/>
+  </g>
+  <!-- Text -->
+  <text x="44" y="20" font-family="'Inter Tight', sans-serif" font-size="14.5" font-weight="800" letter-spacing="0.03em" fill="currentColor">NITI Aayog</text>
+  <text x="44" y="30" font-family="'IBM Plex Mono', monospace" font-size="6.2" font-weight="500" letter-spacing="0.08em" text-transform="uppercase" fill="currentColor" opacity="0.75">Govt. of India</text>
+</svg>

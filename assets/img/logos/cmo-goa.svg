@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 155 40" fill="none" class="brand-svg">
+  <!-- CMO Goa Crest -->
+  <g transform="translate(6, 5)">
+    <circle cx="15" cy="15" r="14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    <!-- Deepa / Lamp motif of Goa state symbol -->
+    <path d="M10 20 h10 c0 3 -2 5 -5 5 s-5 -2 -5 -5 Z" fill="currentColor"/>
+    <path d="M15 11 v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="15" cy="9" r="2.5" fill="var(--accent)"/>
+    <!-- Sun rays -->
+    <path d="M7 10 l3 2 M23 10 l-3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+  </g>
+  <!-- Text -->
+  <text x="44" y="19" font-family="'Inter Tight', sans-serif" font-size="13" font-weight="700" letter-spacing="0.02em" fill="currentColor">CMO Goa</text>
+  <text x="44" y="29" font-family="'IBM Plex Mono', monospace" font-size="6" font-weight="500" letter-spacing="0.08em" text-transform="uppercase" fill="currentColor" opacity="0.75">Govt. of Goa</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 40" fill="none" class="brand-svg">
+  <!-- India TV Broadcast Badge -->
+  <g transform="translate(6, 6)">
+    <rect x="0" y="4" width="28" height="20" rx="3" stroke="currentColor" stroke-width="1.8" fill="none"/>
+    <path d="M8 14 l8 -4 v8 Z" fill="var(--accent)"/>
+    <circle cx="21" cy="9" r="2" fill="currentColor"/>
+  </g>
+  <!-- Text -->
+  <text x="42" y="20" font-family="'Inter Tight', sans-serif" font-size="13.5" font-weight="800" letter-spacing="0.03em" fill="currentColor">India TV</text>
+  <text x="42" y="29" font-family="'IBM Plex Mono', monospace" font-size="6" font-weight="500" letter-spacing="0.08em" text-transform="uppercase" fill="currentColor" opacity="0.75">National News</text>
+</svg>
