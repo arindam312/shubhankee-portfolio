@@ -45,6 +45,13 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- ============ EDITORIAL CURSOR & PAPER GRAIN ============ -->
+  <div class="paper-grain" aria-hidden="true"></div>
+  <div class="ed-cursor" id="ed-cursor" aria-hidden="true">
+    <div class="ed-cursor__dot"></div>
+    <div class="ed-cursor__ring"><span class="ed-cursor__label" id="ed-cursor-label"></span></div>
+  </div>
+
   <!-- ============ NEWSWIRE TICKER ============ -->
   <div class="ticker" aria-label="Latest">
     <div class="ticker__track">
@@ -59,6 +66,7 @@
 
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="top">
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <div class="container site-header__inner">
       <a href="#top" class="brand" aria-label="Shubhankee Raha — home">
         <span class="brand__name">Shubhankee Raha</span>
@@ -73,7 +81,7 @@
         <a href="#experience">Experience</a>
         <a href="#work">Work</a>
         <a href="#press">Press Releases</a>
-        <a href="#contact" class="site-nav__cta">Contact</a>
+        <a href="#contact" class="site-nav__cta" data-magnetic>Contact</a>
       </nav>
     </div>
   </header>
@@ -82,7 +90,7 @@
 
     <!-- ============ HERO ============ -->
     <section class="hero container">
-      <div class="hero__text">
+      <div class="hero__text" data-parallax="-0.03">
         <p class="kicker reveal">Portfolio · Edition 2026</p>
         <h1 class="hero__title reveal">From stories<br />to <em>strategy.</em></h1>
         <p class="hero__lede reveal">
@@ -91,13 +99,13 @@
           campaigns and digital storytelling.
         </p>
         <div class="hero__actions reveal">
-          <a href="#press" class="btn btn--primary">Read my press releases <span aria-hidden="true">→</span></a>
-          <a href="#contact" class="btn btn--ghost">Get in touch</a>
+          <a href="#press" class="btn btn--primary" data-magnetic>Read my press releases <span class="btn__arrow" aria-hidden="true">→</span></a>
+          <a href="#contact" class="btn btn--ghost" data-magnetic>Get in touch</a>
         </div>
       </div>
 
-      <figure class="hero__figure reveal photo-protected">
-        <span class="red-dot" aria-hidden="true"></span>
+      <figure class="hero__figure reveal photo-protected" data-parallax="0.06" data-cursor="PORTRAIT">
+        <span class="red-dot" data-parallax="-0.12" aria-hidden="true"></span>
         <div class="photo-container">
           <img src="assets/img/shubhankee.jpg"
                alt="Shubhankee Raha — PR &amp; Strategic Communications"
@@ -138,7 +146,7 @@
 
     <!-- ============ ABOUT ============ -->
     <section class="section container" id="about">
-      <header class="section__head">
+      <header class="section__head" data-parallax="-0.035">
         <p class="kicker"><span class="kicker__num">01</span> About</p>
         <h2 class="section__title">Newsroom instincts,<br />policy precision.</h2>
       </header>
@@ -192,7 +200,7 @@
 
     <!-- ============ EXPERIENCE ============ -->
     <section class="section container" id="experience">
-      <header class="section__head">
+      <header class="section__head" data-parallax="-0.035">
         <p class="kicker"><span class="kicker__num">02</span> Experience</p>
         <h2 class="section__title">From the newsroom<br />to policy.</h2>
       </header>
@@ -254,37 +262,37 @@
 
     <!-- ============ SELECTED WORK ============ -->
     <section class="section container" id="work">
-      <header class="section__head">
+      <header class="section__head" data-parallax="-0.035">
         <p class="kicker"><span class="kicker__num">03</span> Selected work</p>
         <h2 class="section__title">Stories that moved<br />institutions forward.</h2>
       </header>
 
       <div class="work-grid">
-        <article class="work-card work-card--lg reveal">
-          <div class="work-card__media"><img src="assets/img/press.jpg" alt="Press conference podium" loading="lazy" width="1024" height="768" /></div>
+        <article class="work-card work-card--lg reveal" data-cursor="CASE 01">
+          <div class="work-card__media" data-parallax-media><img src="assets/img/press.jpg" alt="Press conference podium" loading="lazy" width="1024" height="768" /></div>
           <p class="work-card__tag">Policy</p>
           <h3>NITI Aayog communications</h3>
           <p>Integrated communications, policy-focused messaging and leadership publications for India's apex public policy think tank.</p>
         </article>
-        <article class="work-card work-card--lg reveal">
-          <div class="work-card__media"><img src="assets/img/hockey.jpg" alt="Hockey on a grassroots pitch" loading="lazy" width="1024" height="768" /></div>
+        <article class="work-card work-card--lg reveal" data-cursor="CASE 02">
+          <div class="work-card__media" data-parallax-media><img src="assets/img/hockey.jpg" alt="Hockey on a grassroots pitch" loading="lazy" width="1024" height="768" /></div>
           <p class="work-card__tag">Sports</p>
           <h3>Grassroots hockey, Odisha</h3>
           <p>Promotion of 20+ grassroots hockey centres across the state — athlete features, newsletters and community storytelling.</p>
         </article>
-        <article class="work-card reveal">
+        <article class="work-card reveal" data-parallax="0.04">
           <p class="work-card__num">03</p>
           <p class="work-card__tag">Events</p>
           <h3>Major sporting events</h3>
           <p>Media management and operations for the Indian Super League, FIFA World Cup 2026 Qualifier, FIH Pro League 2023–24, Kalinga Super Cup, National Federation Senior Athletics and the Odisha National Swimming Championship.</p>
         </article>
-        <article class="work-card reveal">
+        <article class="work-card reveal" data-parallax="0.07">
           <p class="work-card__num">04</p>
           <p class="work-card__tag">Government</p>
           <h3>Chief Minister's Office, Goa</h3>
           <p>Government impact stories, official social media and campaign narratives that brought public schemes closer to citizens.</p>
         </article>
-        <article class="work-card reveal">
+        <article class="work-card reveal" data-parallax="0.1">
           <p class="work-card__num">05</p>
           <p class="work-card__tag">Editorial</p>
           <h3>The Times of India Group</h3>

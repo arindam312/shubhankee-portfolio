@@ -166,7 +166,7 @@
       ? '<span class="release__impact">' + esc(r.impact) + "</span>"
       : "";
     return (
-      '<article class="release" data-id="' + esc(r.id) + '">' +
+      '<article class="release" data-id="' + esc(r.id) + '" data-cursor="READ ↗">' +
         (r.sample ? '<span class="release__sample">Sample</span>' : "") +
         '<div class="release__top">' +
           '<span class="release__immediate">For immediate release</span>' +
@@ -314,4 +314,177 @@
   }
 
   render();
+
+  /* =========================================================
+     Parallax, Reading Progress, Magnetic & Editorial Cursor
+     ========================================================= */
+  var progressEl = document.getElementById("scroll-progress");
+  var parallaxEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
+  var parallaxMediaEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax-media] img"));
+  var heroFigure = document.querySelector(".hero__figure");
+  var heroImg = heroFigure ? heroFigure.querySelector("img") : null;
+  var heroDot = heroFigure ? heroFigure.querySelector(".red-dot") : null;
+
+  var ticking = false;
+  function updateParallax() {
+    ticking = false;
+    var scrollY = window.scrollY || window.pageYOffset;
+    var docH = document.documentElement.scrollHeight - window.innerHeight;
+    if (progressEl && docH > 0) {
+      var ratio = Math.min(Math.max(scrollY / docH, 0), 1);
+      progressEl.style.setProperty("--scroll-progress", ratio.toFixed(4));
+    }
+    if (reduceMotion) return;
+
+    var vh = window.innerHeight;
+    var center = vh * 0.5;
+
+    parallaxEls.forEach(function (el) {
+      var speed = parseFloat(el.getAttribute("data-parallax")) || 0;
+      var rect = el.getBoundingClientRect();
+      if (rect.bottom < -200 || rect.top > vh + 200) return;
+      var elCenter = rect.top + rect.height * 0.5;
+      var offset = (elCenter - center) * speed;
+      var clamped = Math.max(-42, Math.min(42, offset));
+      el.style.setProperty("--parallax-y", clamped.toFixed(2) + "px");
+    });
+
+    if (heroImg && heroFigure) {
+      var hRect = heroFigure.getBoundingClientRect();
+      if (hRect.bottom > 0 && hRect.top < vh) {
+        var hOffset = ((hRect.top + hRect.height * 0.5) - center) * -0.05;
+        heroImg.style.setProperty("--img-parallax-y", Math.max(-24, Math.min(24, hOffset)).toFixed(2) + "px");
+      }
+    }
+
+    parallaxMediaEls.forEach(function (img) {
+      var rect = img.parentElement.getBoundingClientRect();
+      if (rect.bottom < -100 || rect.top > vh + 100) return;
+      var mOffset = ((rect.top + rect.height * 0.5) - center) * -0.055;
+      img.style.setProperty("--media-parallax-y", Math.max(-22, Math.min(22, mOffset)).toFixed(2) + "px");
+    });
+  }
+
+  function requestParallax() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateParallax);
+    }
+  }
+  window.addEventListener("scroll", requestParallax, { passive: true });
+  window.addEventListener("resize", requestParallax, { passive: true });
+  updateParallax();
+
+  /* ---------- Hero Portrait Subtle 3D Mouse Tilt ---------- */
+  if (heroFigure && !reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    heroFigure.addEventListener("mousemove", function (e) {
+      var rect = heroFigure.getBoundingClientRect();
+      var nx = ((e.clientX - rect.left) / rect.width) - 0.5;
+      var ny = ((e.clientY - rect.top) / rect.height) - 0.5;
+      if (heroImg) {
+        heroImg.style.setProperty("--img-tilt-x", (-nx * 12).toFixed(2) + "px");
+        heroImg.style.setProperty("--img-tilt-y", (-ny * 12).toFixed(2) + "px");
+      }
+      if (heroDot) {
+        heroDot.style.setProperty("--dot-x", (nx * 16).toFixed(2) + "px");
+        heroDot.style.setProperty("--dot-y", (ny * 16).toFixed(2) + "px");
+      }
+    });
+    heroFigure.addEventListener("mouseleave", function () {
+      if (heroImg) {
+        heroImg.style.setProperty("--img-tilt-x", "0px");
+        heroImg.style.setProperty("--img-tilt-y", "0px");
+      }
+      if (heroDot) {
+        heroDot.style.setProperty("--dot-x", "0px");
+        heroDot.style.setProperty("--dot-y", "0px");
+      }
+    });
+  }
+
+  /* ---------- Magnetic Buttons ---------- */
+  if (!reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    document.querySelectorAll("[data-magnetic]").forEach(function (btn) {
+      btn.addEventListener("mousemove", function (e) {
+        var r = btn.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width * 0.5)) * 0.22;
+        var dy = (e.clientY - (r.top + r.height * 0.5)) * 0.28;
+        btn.style.setProperty("--mx", dx.toFixed(2) + "px");
+        btn.style.setProperty("--my", dy.toFixed(2) + "px");
+      });
+      btn.addEventListener("mouseleave", function () {
+        btn.style.setProperty("--mx", "0px");
+        btn.style.setProperty("--my", "0px");
+      });
+    });
+  }
+
+  /* ---------- Editorial Custom Cursor ---------- */
+  var cursorEl = document.getElementById("ed-cursor");
+  var cursorLabel = document.getElementById("ed-cursor-label");
+  if (cursorEl && !reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    document.documentElement.classList.add("has-custom-cursor");
+    var cx = -100, cy = -100, rx = -100, ry = -100;
+    var cursorVisible = false;
+    var rafActive = false;
+
+    function animateCursor() {
+      rx += (cx - rx) * 0.18;
+      ry += (cy - ry) * 0.18;
+      cursorEl.style.setProperty("--cx", cx.toFixed(1) + "px");
+      cursorEl.style.setProperty("--cy", cy.toFixed(1) + "px");
+      cursorEl.style.setProperty("--rx", rx.toFixed(1) + "px");
+      cursorEl.style.setProperty("--ry", ry.toFixed(1) + "px");
+      if (Math.abs(cx - rx) > 0.15 || Math.abs(cy - ry) > 0.15) {
+        requestAnimationFrame(animateCursor);
+      } else {
+        rafActive = false;
+      }
+    }
+
+    window.addEventListener("mousemove", function (e) {
+      cx = e.clientX;
+      cy = e.clientY;
+      if (!cursorVisible) {
+        rx = cx;
+        ry = cy;
+        cursorVisible = true;
+        cursorEl.classList.add("is-visible");
+      }
+      if (!rafActive) {
+        rafActive = true;
+        requestAnimationFrame(animateCursor);
+      }
+
+      var target = e.target;
+      if (!target || !target.closest) return;
+      var badgeTarget = target.closest("[data-cursor]");
+      var copyTarget = target.closest("[data-copy]");
+      var interactiveTarget = target.closest("a, button, .chip, input, select, textarea, label");
+
+      if (badgeTarget) {
+        cursorEl.classList.add("is-badge");
+        cursorEl.classList.remove("is-hover");
+        if (cursorLabel) cursorLabel.textContent = badgeTarget.getAttribute("data-cursor");
+      } else if (copyTarget) {
+        cursorEl.classList.add("is-badge");
+        cursorEl.classList.remove("is-hover");
+        if (cursorLabel) cursorLabel.textContent = "COPY";
+      } else if (interactiveTarget) {
+        cursorEl.classList.add("is-hover");
+        cursorEl.classList.remove("is-badge");
+        if (cursorLabel) cursorLabel.textContent = "";
+      } else {
+        cursorEl.classList.remove("is-hover", "is-badge");
+        if (cursorLabel) cursorLabel.textContent = "";
+      }
+    }, { passive: true });
+
+    window.addEventListener("mousedown", function () { cursorEl.classList.add("is-down"); });
+    window.addEventListener("mouseup", function () { cursorEl.classList.remove("is-down"); });
+    document.addEventListener("mouseleave", function () {
+      cursorEl.classList.remove("is-visible");
+      cursorVisible = false;
+    });
+  }
 })();
