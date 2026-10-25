@@ -449,7 +449,7 @@ em { font-style: italic; color: var(--accent); }
 
 /* Trust strip */
 .trust {
-  display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap;
+  display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
   padding-block: 1.75rem;
   border-top: 3px double var(--ink); border-bottom: 1px solid var(--rule);
 }
@@ -459,22 +459,41 @@ em { font-style: italic; color: var(--accent); }
 }
 .trust__grid {
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
-  gap: 1.25rem 2.25rem; flex: 1;
+  gap: 1.35rem 2rem; flex: 1;
 }
 .trust__item {
   display: inline-flex; align-items: center; justify-content: center;
-  filter: grayscale(1) opacity(.72);
-  transition: filter .35s var(--ease), transform .3s var(--ease), opacity .3s;
+  opacity: .9;
+  transition: transform .3s var(--ease), opacity .3s var(--ease), filter .3s var(--ease);
   cursor: default;
 }
 .trust__item:hover {
-  filter: grayscale(0) opacity(1);
+  opacity: 1;
   transform: translateY(-2px);
 }
 .trust__item img {
-  height: 28px; width: auto; max-width: 175px; object-fit: contain;
+  height: 38px; width: auto; max-width: 185px; object-fit: contain;
   display: block;
   pointer-events: none;
+}
+.trust__item .trust__logo--amtz { height: 42px; }
+.trust__item .trust__logo--niti { height: 48px; }
+.trust__item .trust__logo--seal { height: 44px; }
+.trust__item .trust__logo--toi { height: 15px; }
+.trust__item .trust__logo--abp { height: 46px; }
+.trust__item .trust__logo--indiatv { height: 28px; }
+.trust__item--seal { gap: .55rem; }
+.trust__seal-text {
+  display: flex; flex-direction: column; line-height: 1.15;
+  pointer-events: none;
+}
+.trust__seal-text strong {
+  font-family: var(--font-body); font-size: .82rem; font-weight: 600;
+  color: var(--ink); letter-spacing: -.01em; white-space: nowrap;
+}
+.trust__seal-text small {
+  font-family: var(--font-mono); font-size: .6rem;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--muted); white-space: nowrap;
 }
 
 /* =========================================================
@@ -876,8 +895,13 @@ em { font-style: italic; color: var(--accent); }
   .expertise__list { grid-template-columns: 1fr; }
   .search { min-width: 0; width: 100%; }
   .trust { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .trust__grid { gap: .85rem 1.5rem; justify-content: flex-start; }
-  .trust__item img { height: 24px; max-width: 140px; }
+  .trust__grid { gap: 1rem 1.5rem; justify-content: flex-start; }
+  .trust__item .trust__logo--amtz { height: 34px; }
+  .trust__item .trust__logo--niti { height: 40px; }
+  .trust__item .trust__logo--seal { height: 36px; }
+  .trust__item .trust__logo--toi { height: 13px; }
+  .trust__item .trust__logo--abp { height: 38px; }
+  .trust__item .trust__logo--indiatv { height: 24px; }
   .hero__figure .red-dot { left: -.6rem; top: -.9rem; width: 2.5rem; height: 2.5rem; }
   .red-dot__ring { width: 84px; height: 84px; }
   .hero-backplate { top: -10px; right: -10px; left: 10px; }
