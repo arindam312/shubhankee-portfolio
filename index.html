@@ -96,10 +96,19 @@
         </div>
       </div>
 
-      <figure class="hero__figure reveal">
+      <figure class="hero__figure reveal photo-protected">
         <span class="red-dot" aria-hidden="true"></span>
-        <img src="assets/img/hero-desk.jpg" alt="Writer's desk with newspapers and microphone" width="1280" height="960" fetchpriority="high" />
-        <figcaption>Journalism · Public Relations · Strategic Communications · Digital Media</figcaption>
+        <div class="photo-container">
+          <img src="assets/img/shubhankee.jpg"
+               alt="Shubhankee Raha — PR &amp; Strategic Communications"
+               width="680" height="850"
+               fetchpriority="high"
+               draggable="false"
+               oncontextmenu="return false;" />
+          <!-- Protective shield preventing right-click, saving, dragging, or downloading -->
+          <div class="photo-shield" aria-hidden="true" oncontextmenu="return false;"></div>
+        </div>
+        <figcaption>Shubhankee Raha · PR &amp; Strategic Communications</figcaption>
       </figure>
     </section>
 

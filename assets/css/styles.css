@@ -172,6 +172,35 @@ em { font-style: italic; color: var(--accent); }
 
 .hero__figure { position: relative; margin: 0; }
 .hero__figure .red-dot { top: -1.4rem; left: -1.4rem; }
+
+/* Anti-download security shield */
+.photo-protected {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.photo-container {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.photo-container img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.photo-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: transparent;
+  cursor: default;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
 .hero__figure img {
   width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
   filter: grayscale(1) contrast(1.05);
