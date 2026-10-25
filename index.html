@@ -355,6 +355,32 @@
     </section>
   </main>
 
+  <!-- ============ PRESS RELEASE READER MODAL ============ -->
+  <div id="reader-modal" class="reader-modal" role="dialog" aria-modal="true" aria-labelledby="reader-title" hidden>
+    <div class="reader-sheet">
+      <header class="reader-header">
+        <span class="reader-header__left" id="reader-org">Official Release</span>
+        <div class="reader-header__actions">
+          <button type="button" class="reader-act-btn" id="reader-copy-btn">Copy Release</button>
+          <button type="button" class="reader-act-btn" id="reader-print-btn">Print</button>
+          <button type="button" class="reader-close" id="reader-close-btn" aria-label="Close modal">×</button>
+        </div>
+      </header>
+      <div class="reader-body">
+        <div class="reader-wire-bar">
+          <span>FOR IMMEDIATE RELEASE</span>
+          <span id="reader-category">Category</span>
+        </div>
+        <h2 class="reader-headline" id="reader-title">Headline</h2>
+        <p class="reader-subhead" id="reader-subhead">Subhead</p>
+        <div class="reader-paragraphs" id="reader-content"></div>
+        <div class="reader-boilerplate" id="reader-boilerplate"></div>
+        <div class="reader-media-block" id="reader-media"></div>
+        <div class="reader-endmark" aria-hidden="true">###</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <div class="container site-footer__inner">

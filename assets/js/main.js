@@ -162,21 +162,141 @@
 
   function card(r) {
     var dateline = [r.location, formatDate(r.date)].filter(Boolean).join(", ");
-    var link = r.link
-      ? '<a class="release__link" href="' + esc(r.link) + '" target="_blank" rel="noopener">Read release <span aria-hidden="true">↗</span></a>'
+    var impact = r.impact
+      ? '<span class="release__impact">' + esc(r.impact) + "</span>"
       : "";
     return (
-      '<article class="release">' +
+      '<article class="release" data-id="' + esc(r.id) + '">' +
         (r.sample ? '<span class="release__sample">Sample</span>' : "") +
-        '<div class="release__top"><span class="release__immediate">For immediate release</span>' +
-        '<span class="release__cat">' + esc(r.category) + "</span></div>" +
+        '<div class="release__top">' +
+          '<span class="release__immediate">For immediate release</span>' +
+          '<span class="release__cat">' + esc(r.category) + "</span>" +
+        "</div>" +
         '<p class="release__dateline">' + esc(dateline) + " —</p>" +
         '<h3 class="release__title">' + esc(r.title) + "</h3>" +
         (r.summary ? '<p class="release__summary">' + esc(r.summary) + "</p>" : "") +
-        '<div class="release__foot"><span class="release__org">' + esc(r.org) + "</span>" + link + "</div>" +
+        impact +
+        '<div class="release__foot">' +
+          '<span class="release__org">' + esc(r.org) + "</span>" +
+          '<button type="button" class="release__btn" data-open-release="' + esc(r.id) + '">Read release →</button>' +
+        "</div>" +
         '<span class="release__end" aria-hidden="true">###</span>' +
       "</article>"
     );
+  }
+
+  /* =========================================================
+     Press Release Reader Modal
+     ========================================================= */
+  var modal = document.getElementById("reader-modal");
+  var mOrg = document.getElementById("reader-org");
+  var mCat = document.getElementById("reader-category");
+  var mTitle = document.getElementById("reader-title");
+  var mSubhead = document.getElementById("reader-subhead");
+  var mContent = document.getElementById("reader-content");
+  var mBoilerplate = document.getElementById("reader-boilerplate");
+  var mMedia = document.getElementById("reader-media");
+  var mCloseBtn = document.getElementById("reader-close-btn");
+  var mCopyBtn = document.getElementById("reader-copy-btn");
+  var mPrintBtn = document.getElementById("reader-print-btn");
+  var currentActiveRelease = null;
+
+  function openReader(id) {
+    var item = data.find(function (r) { return r.id === id; });
+    if (!item || !modal) return;
+    currentActiveRelease = item;
+
+    mOrg.textContent = item.org || "Official Wire Release";
+    mCat.textContent = item.category || "General";
+    mTitle.textContent = item.title || "";
+    mSubhead.textContent = item.subhead || item.summary || "";
+    
+    var pars = (item.body && item.body.length) ? item.body : [item.summary];
+    mContent.innerHTML = pars.map(function (p) {
+      if (p.indexOf('"') !== -1 && p.length < 220) {
+        return '<blockquote class="reader-quote">' + esc(p) + '</blockquote>';
+      }
+      return '<p>' + esc(p) + '</p>';
+    }).join("");
+
+    mBoilerplate.innerHTML = item.boilerplate
+      ? '<strong>Official Boilerplate:</strong><br />' + esc(item.boilerplate)
+      : "";
+    mBoilerplate.style.display = item.boilerplate ? "block" : "none";
+
+    mMedia.innerHTML = item.mediaContact
+      ? '<strong>Media Inquiries:</strong> ' + esc(item.mediaContact)
+      : "";
+    mMedia.style.display = item.mediaContact ? "block" : "none";
+
+    modal.hidden = false;
+    requestAnimationFrame(function () {
+      modal.classList.add("is-open");
+    });
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeReader() {
+    if (!modal) return;
+    modal.classList.remove("is-open");
+    setTimeout(function () {
+      modal.hidden = true;
+      document.body.style.overflow = "";
+      currentActiveRelease = null;
+    }, 280);
+  }
+
+  if (grid) {
+    grid.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-open-release]");
+      if (btn) {
+        e.preventDefault();
+        openReader(btn.getAttribute("data-open-release"));
+        return;
+      }
+      var cardEl = e.target.closest(".release");
+      if (cardEl && cardEl.getAttribute("data-id")) {
+        openReader(cardEl.getAttribute("data-id"));
+      }
+    });
+  }
+
+  if (mCloseBtn) mCloseBtn.addEventListener("click", closeReader);
+  if (modal) {
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) closeReader();
+    });
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal && !modal.hidden) closeReader();
+  });
+
+  if (mCopyBtn) {
+    mCopyBtn.addEventListener("click", function () {
+      if (!currentActiveRelease) return;
+      var text = [
+        "FOR IMMEDIATE RELEASE",
+        currentActiveRelease.title,
+        currentActiveRelease.subhead || "",
+        "",
+        (currentActiveRelease.body || [currentActiveRelease.summary]).join("\n\n"),
+        "",
+        currentActiveRelease.boilerplate || "",
+        currentActiveRelease.mediaContact || "",
+        "###"
+      ].join("\n");
+      var original = mCopyBtn.textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        mCopyBtn.textContent = "Copied ✓";
+        setTimeout(function () { mCopyBtn.textContent = original; }, 1800);
+      });
+    });
+  }
+
+  if (mPrintBtn) {
+    mPrintBtn.addEventListener("click", function () {
+      window.print();
+    });
   }
 
   function render() {
