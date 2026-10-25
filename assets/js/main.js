@@ -322,8 +322,11 @@
   var parallaxEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
   var parallaxMediaEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax-media] img"));
   var heroFigure = document.querySelector(".hero__figure");
+  var heroContainer = heroFigure ? heroFigure.querySelector(".photo-container") : null;
   var heroImg = heroFigure ? heroFigure.querySelector("img") : null;
   var heroDot = heroFigure ? heroFigure.querySelector(".red-dot") : null;
+  var heroBackplate = heroFigure ? heroFigure.querySelector(".hero-backplate") : null;
+  var heroDispatch = heroFigure ? heroFigure.querySelector(".hero-dispatch") : null;
 
   var ticking = false;
   function updateParallax() {
@@ -352,8 +355,11 @@
     if (heroImg && heroFigure) {
       var hRect = heroFigure.getBoundingClientRect();
       if (hRect.bottom > 0 && hRect.top < vh) {
-        var hOffset = ((hRect.top + hRect.height * 0.5) - center) * -0.05;
-        heroImg.style.setProperty("--img-parallax-y", Math.max(-24, Math.min(24, hOffset)).toFixed(2) + "px");
+        var hOffset = ((hRect.top + hRect.height * 0.5) - center) * -0.065;
+        heroImg.style.setProperty("--img-parallax-y", Math.max(-28, Math.min(28, hOffset)).toFixed(2) + "px");
+      }
+      if (heroDot) {
+        heroDot.style.setProperty("--seal-rot", (scrollY * 0.18).toFixed(1) + "deg");
       }
     }
 
@@ -375,22 +381,43 @@
   window.addEventListener("resize", requestParallax, { passive: true });
   updateParallax();
 
-  /* ---------- Hero Portrait Subtle 3D Mouse Tilt ---------- */
+  /* ---------- Hero Multi-Layer 3D Parallax & Sheen ---------- */
   if (heroFigure && !reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     heroFigure.addEventListener("mousemove", function (e) {
       var rect = heroFigure.getBoundingClientRect();
-      var nx = ((e.clientX - rect.left) / rect.width) - 0.5;
-      var ny = ((e.clientY - rect.top) / rect.height) - 0.5;
+      var px = (e.clientX - rect.left) / rect.width;
+      var py = (e.clientY - rect.top) / rect.height;
+      var nx = px - 0.5;
+      var ny = py - 0.5;
+
+      if (heroContainer) {
+        heroContainer.style.setProperty("--frame-rx", (-ny * 7).toFixed(2) + "deg");
+        heroContainer.style.setProperty("--frame-ry", (nx * 7).toFixed(2) + "deg");
+        heroContainer.style.setProperty("--sheen-x", (px * 100).toFixed(1) + "%");
+        heroContainer.style.setProperty("--sheen-y", (py * 100).toFixed(1) + "%");
+      }
       if (heroImg) {
-        heroImg.style.setProperty("--img-tilt-x", (-nx * 12).toFixed(2) + "px");
-        heroImg.style.setProperty("--img-tilt-y", (-ny * 12).toFixed(2) + "px");
+        heroImg.style.setProperty("--img-tilt-x", (-nx * 16).toFixed(2) + "px");
+        heroImg.style.setProperty("--img-tilt-y", (-ny * 16).toFixed(2) + "px");
       }
       if (heroDot) {
-        heroDot.style.setProperty("--dot-x", (nx * 16).toFixed(2) + "px");
-        heroDot.style.setProperty("--dot-y", (ny * 16).toFixed(2) + "px");
+        heroDot.style.setProperty("--dot-x", (nx * 22).toFixed(2) + "px");
+        heroDot.style.setProperty("--dot-y", (ny * 22).toFixed(2) + "px");
+      }
+      if (heroBackplate) {
+        heroBackplate.style.setProperty("--back-x", (-nx * 18).toFixed(2) + "px");
+        heroBackplate.style.setProperty("--back-y", (-ny * 18).toFixed(2) + "px");
+      }
+      if (heroDispatch) {
+        heroDispatch.style.setProperty("--card-x", (nx * 26).toFixed(2) + "px");
+        heroDispatch.style.setProperty("--card-y", (ny * 20).toFixed(2) + "px");
       }
     });
     heroFigure.addEventListener("mouseleave", function () {
+      if (heroContainer) {
+        heroContainer.style.setProperty("--frame-rx", "0deg");
+        heroContainer.style.setProperty("--frame-ry", "0deg");
+      }
       if (heroImg) {
         heroImg.style.setProperty("--img-tilt-x", "0px");
         heroImg.style.setProperty("--img-tilt-y", "0px");
@@ -398,6 +425,14 @@
       if (heroDot) {
         heroDot.style.setProperty("--dot-x", "0px");
         heroDot.style.setProperty("--dot-y", "0px");
+      }
+      if (heroBackplate) {
+        heroBackplate.style.setProperty("--back-x", "0px");
+        heroBackplate.style.setProperty("--back-y", "0px");
+      }
+      if (heroDispatch) {
+        heroDispatch.style.setProperty("--card-x", "0px");
+        heroDispatch.style.setProperty("--card-y", "0px");
       }
     });
   }

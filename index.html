@@ -104,19 +104,47 @@
         </div>
       </div>
 
-      <figure class="hero__figure reveal photo-protected" data-parallax="0.06" data-cursor="PORTRAIT">
-        <span class="red-dot" data-parallax="-0.12" aria-hidden="true"></span>
+      <figure class="hero__figure reveal photo-protected" data-parallax="0.05" data-cursor="PORTRAIT">
+        <!-- Layer 1: Offset broadsheet architectural backplate (deep parallax plane) -->
+        <div class="hero-backplate" data-parallax="-0.09" aria-hidden="true"></div>
+
+        <!-- Layer 2: Foreground rotating editorial seal + red dot -->
+        <div class="red-dot" data-parallax="-0.14" aria-hidden="true">
+          <svg class="red-dot__ring" viewBox="0 0 120 120" width="108" height="108">
+            <defs>
+              <path id="sealPath" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
+            </defs>
+            <text>
+              <textPath href="#sealPath" startOffset="0%">STORIES TO STRATEGY · POLICY &amp; PR ·</textPath>
+            </text>
+          </svg>
+        </div>
+
+        <!-- Layer 3: Windowed portrait container with 3D tilt, sheen & anti-download shield -->
         <div class="photo-container">
+          <span class="photo-reg photo-reg--tl" aria-hidden="true">+</span>
+          <span class="photo-reg photo-reg--br" aria-hidden="true">+</span>
           <img src="assets/img/shubhankee.jpg"
                alt="Shubhankee Raha — PR &amp; Strategic Communications"
                width="680" height="850"
                fetchpriority="high"
                draggable="false"
                oncontextmenu="return false;" />
+          <div class="photo-sheen" aria-hidden="true"></div>
           <!-- Protective shield preventing right-click, saving, dragging, or downloading -->
           <div class="photo-shield" aria-hidden="true" oncontextmenu="return false;"></div>
         </div>
-        <figcaption>Shubhankee Raha · PR &amp; Strategic Communications</figcaption>
+
+        <!-- Layer 4: Floating foreground press dispatch badge -->
+        <div class="hero-dispatch" data-parallax="-0.11" aria-hidden="true">
+          <span class="hero-dispatch__kicker"><span class="hero-dispatch__dot"></span>Press Dispatch</span>
+          <span class="hero-dispatch__text">10+ yrs shaping policy &amp; institutional narratives</span>
+        </div>
+
+        <figcaption>
+          <span>Shubhankee Raha · PR &amp; Strategic Communications</span>
+          <span class="hero__coords">FIG. 01 — EDITORIAL</span>
+        </figcaption>
       </figure>
     </section>
 
