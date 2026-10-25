@@ -44,10 +44,10 @@ html[data-theme="dark"] {
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
@@ -268,6 +268,7 @@ html[data-theme="dark"] .ticker {
    Header
    ========================================================= */
 .site-header {
+  position: -webkit-sticky;
   position: sticky; top: 0; z-index: 50;
   background: var(--header-bg);
   backdrop-filter: saturate(1.4) blur(10px);
