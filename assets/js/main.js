@@ -9,6 +9,33 @@
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---------- Theme toggle (Light / Dark mode) ---------- */
+  var themeToggle = document.getElementById("theme-toggle");
+  var themeLabel = document.getElementById("theme-toggle-label");
+  function applyThemeUI(theme) {
+    var isDark = theme === "dark";
+    if (isDark) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+    if (themeLabel) themeLabel.textContent = isDark ? "Light" : "Dark";
+    if (themeToggle) {
+      themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+      themeToggle.setAttribute("aria-pressed", String(isDark));
+    }
+  }
+  if (themeToggle) {
+    var initialTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    applyThemeUI(initialTheme);
+    themeToggle.addEventListener("click", function () {
+      var current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      var next = current === "dark" ? "light" : "dark";
+      applyThemeUI(next);
+      try { localStorage.setItem("sr-theme", next); } catch (e) {}
+    });
+  }
+
   /* ---------- Mobile navigation ---------- */
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("site-nav");

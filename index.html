@@ -23,7 +23,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <script>document.documentElement.classList.add("js");</script>
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add("js");
+      try {
+        var saved = localStorage.getItem("sr-theme");
+        if (saved === "dark" || saved === "light") {
+          d.setAttribute("data-theme", saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
 
   <!-- Structured data for search engines -->
   <script type="application/ld+json">
@@ -72,17 +83,29 @@
         <span class="brand__name">Shubhankee Raha</span>
         <span class="brand__tag">PR &amp; Strategic Communications</span>
       </a>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
-        <span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span>
-        <span class="sr-only">Menu</span>
-      </button>
-      <nav class="site-nav" id="site-nav" aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#work">Work</a>
-        <a href="#press">Press Releases</a>
-        <a href="#contact" class="site-nav__cta" data-magnetic>Contact</a>
-      </nav>
+      <div class="site-header__actions">
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#work">Work</a>
+          <a href="#press">Press Releases</a>
+          <a href="#contact" class="site-nav__cta" data-magnetic>Contact</a>
+        </nav>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" data-cursor="THEME">
+          <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.5"></circle>
+            <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"></path>
+          </svg>
+          <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <span class="theme-toggle__label" id="theme-toggle-label">Dark</span>
+        </button>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+          <span class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span>
+          <span class="sr-only">Menu</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -151,7 +174,10 @@
     <!-- Credibility strip -->
     <section class="container" aria-label="Organisations I have worked with">
       <div class="trust">
-        <p class="trust__label">Trusted by &amp; worked with</p>
+        <div class="trust__head">
+          <p class="trust__label">Trusted by &amp; worked with</p>
+          <span class="trust__rule" aria-hidden="true"></span>
+        </div>
         <div class="trust__grid">
           <div class="trust__item" data-cursor="AMTZ" title="Andhra Pradesh MedTech Zone">
             <img class="trust__logo trust__logo--amtz" src="assets/img/logos/amtz.svg" alt="AMTZ — Andhra Pradesh MedTech Zone" width="110" height="44" loading="lazy" />
@@ -160,27 +186,27 @@
             <img class="trust__logo trust__logo--niti" src="assets/img/logos/niti-aayog.svg" alt="NITI Aayog" width="54" height="50" loading="lazy" />
           </div>
           <div class="trust__item trust__item--seal" data-cursor="CMO GOA" title="Chief Minister's Office, Goa">
-            <img class="trust__logo trust__logo--seal" src="assets/img/logos/cmo-goa.svg" alt="Emblem of Government of Goa" width="34" height="48" loading="lazy" />
+            <img class="trust__logo trust__logo--seal trust__logo--goa" src="assets/img/logos/cmo-goa.svg" alt="Emblem of Government of Goa" width="34" height="48" loading="lazy" />
             <span class="trust__seal-text">
               <strong>CMO Goa</strong>
               <small>Govt. of Goa</small>
             </span>
           </div>
           <div class="trust__item trust__item--seal" data-cursor="ODISHA SPORTS" title="Sports &amp; Youth Services, Government of Odisha">
-            <img class="trust__logo trust__logo--seal" src="assets/img/logos/sports-odisha.svg" alt="Seal of Government of Odisha" width="38" height="48" loading="lazy" />
+            <img class="trust__logo trust__logo--seal trust__logo--odisha" src="assets/img/logos/sports-odisha.svg" alt="Seal of Government of Odisha" width="38" height="48" loading="lazy" />
             <span class="trust__seal-text">
               <strong>Sports Odisha</strong>
               <small>Govt. of Odisha</small>
             </span>
           </div>
           <div class="trust__item" data-cursor="TIMES OF INDIA" title="The Times of India Group">
-            <img class="trust__logo trust__logo--toi" src="assets/img/logos/toi.svg" alt="The Times of India" width="185" height="14" loading="lazy" />
+            <img class="trust__logo trust__logo--toi" src="assets/img/logos/toi.svg" alt="The Times of India" width="142" height="11" loading="lazy" />
           </div>
           <div class="trust__item" data-cursor="ABP NEWS" title="ABP Network">
             <img class="trust__logo trust__logo--abp" src="assets/img/logos/abp.svg" alt="ABP News" width="28" height="50" loading="lazy" />
           </div>
           <div class="trust__item" data-cursor="INDIA TV" title="India TV">
-            <img class="trust__logo trust__logo--indiatv" src="assets/img/logos/indiatv.svg" alt="India TV" width="118" height="30" loading="lazy" />
+            <img class="trust__logo trust__logo--indiatv" src="assets/img/logos/indiatv.svg" alt="India TV" width="110" height="28" loading="lazy" />
           </div>
         </div>
       </div>
