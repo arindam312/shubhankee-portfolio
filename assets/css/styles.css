@@ -499,8 +499,8 @@ html[data-theme="dark"] .theme-toggle__moon { display: none; }
 
 /* Trust strip */
 .trust {
-  display: flex; flex-direction: column; gap: 1.25rem;
-  padding-block: 1.65rem 1.95rem;
+  display: flex; flex-direction: column; gap: 1.15rem;
+  padding-block: 1.6rem 1.85rem;
   border-top: 3px double var(--ink); border-bottom: 1px solid var(--rule);
 }
 .trust__head {
@@ -514,49 +514,48 @@ html[data-theme="dark"] .theme-toggle__moon { display: none; }
   flex: 1; height: 1px; background: var(--rule);
 }
 .trust__grid {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  display: flex;
   align-items: center;
-  justify-items: center;
-  gap: 1.25rem .75rem;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
   width: 100%;
+  flex-wrap: nowrap;
 }
 .trust__item {
-  width: 100%;
-  min-height: 54px;
+  width: auto;
+  flex: 0 0 auto;
+  min-height: 48px;
   display: flex; align-items: center; justify-content: center;
-  padding-inline: .35rem;
-  border-left: 1px solid var(--rule);
+  padding: 0;
+  border-left: 0;
   opacity: .92;
   transition: transform .3s var(--ease), opacity .3s var(--ease), filter .3s var(--ease);
   cursor: default;
-}
-.trust__item:first-child {
-  border-left: 0;
 }
 .trust__item:hover {
   opacity: 1;
   transform: translateY(-2px);
 }
 .trust__item img {
-  height: 38px; width: auto; max-width: 100%; object-fit: contain;
+  height: 36px; width: auto; max-width: none; object-fit: contain;
   display: block;
   pointer-events: none;
   transition: filter .3s var(--ease);
 }
-.trust__item .trust__logo--amtz { height: 40px; }
-.trust__item .trust__logo--niti { height: 48px; }
-.trust__item .trust__logo--seal { height: 44px; }
-.trust__item .trust__logo--toi { height: 12px; max-width: 138px; }
-.trust__item .trust__logo--abp { height: 46px; }
-.trust__item .trust__logo--indiatv { height: 27px; max-width: 112px; }
-.trust__item--seal { gap: .5rem; }
+.trust__item .trust__logo--amtz { height: 33px; }
+.trust__item .trust__logo--niti { height: 45px; }
+.trust__item .trust__logo--goa { height: 40px; }
+.trust__item .trust__logo--odisha { height: 37px; }
+.trust__item .trust__logo--toi { height: 12px; }
+.trust__item .trust__logo--abp { height: 45px; }
+.trust__item .trust__logo--indiatv { height: 21px; }
+.trust__item--seal { gap: .55rem; }
 .trust__seal-text {
-  display: flex; flex-direction: column; line-height: 1.15;
+  display: flex; flex-direction: column; line-height: 1.18;
   pointer-events: none;
 }
 .trust__seal-text strong {
-  font-family: var(--font-body); font-size: .8rem; font-weight: 600;
+  font-family: var(--font-body); font-size: .84rem; font-weight: 600;
   color: var(--ink); letter-spacing: -.01em; white-space: nowrap;
 }
 .trust__seal-text small {
@@ -998,12 +997,13 @@ html[data-theme="dark"] .services {
   .search { min-width: 0; width: 100%; }
   .trust__grid { gap: 1.15rem 1.25rem; justify-content: center; }
   .trust__item { flex: 0 1 calc(50% - .75rem); min-width: 120px; }
-  .trust__item .trust__logo--amtz { height: 34px; }
-  .trust__item .trust__logo--niti { height: 40px; }
-  .trust__item .trust__logo--seal { height: 36px; }
-  .trust__item .trust__logo--toi { height: 11px; max-width: 125px; }
-  .trust__item .trust__logo--abp { height: 38px; }
-  .trust__item .trust__logo--indiatv { height: 24px; }
+  .trust__item .trust__logo--amtz { height: 29px; }
+  .trust__item .trust__logo--niti { height: 39px; }
+  .trust__item .trust__logo--goa { height: 35px; }
+  .trust__item .trust__logo--odisha { height: 32px; }
+  .trust__item .trust__logo--toi { height: 10.5px; max-width: 145px; }
+  .trust__item .trust__logo--abp { height: 39px; }
+  .trust__item .trust__logo--indiatv { height: 19px; }
   .hero__figure .red-dot { left: -.6rem; top: -.9rem; width: 2.5rem; height: 2.5rem; }
   .red-dot__ring { width: 84px; height: 84px; }
   .hero-backplate { top: -10px; right: -10px; left: 10px; }
